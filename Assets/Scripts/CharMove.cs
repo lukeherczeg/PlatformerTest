@@ -5,10 +5,10 @@ using UnityEngine;
 public class CharMove : MonoBehaviour
 {
     public Animator animator;
-    public int playerSpeed = 8;
-    public int playerJumpPower = 1700;
-    public float sprintMult = 2;
-    public float totalSpeed;
+    private int playerSpeed = 8;
+    private int playerJumpPower = 1700;
+    private float sprintMult = 3;
+    private float totalSpeed;
     private float moveX;
     private float sprintX;
     private bool facingRight = true;
@@ -29,6 +29,7 @@ public class CharMove : MonoBehaviour
             animator.SetBool("IsJumping", true);
         }
         //ANIMATIONS
+
         //PLAYER DIRECTION
         if (moveX > 0.0f && !facingRight)
         {
@@ -49,8 +50,8 @@ public class CharMove : MonoBehaviour
             else {
                 animator.SetBool("IsSprinting", false);
             }
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * totalSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
         }
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * totalSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
     }
 
     void Jump()
