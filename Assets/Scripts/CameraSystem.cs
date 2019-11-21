@@ -13,10 +13,10 @@ public class CameraSystem : MonoBehaviour {
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
 	}
-	
+
 	void LateUpdate () {
         float x = Mathf.Clamp(player.transform.position.x, xMin, xMax);
-        float y = Mathf.Clamp(player.transform.position.y, yMin, yMax);
+        float y = Mathf.Clamp(player.transform.position.y, yMin, yMax) + 2;
         gameObject.transform.position = new Vector3(x, y, gameObject.transform.position.z);
     }
 }

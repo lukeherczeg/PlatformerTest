@@ -13,9 +13,9 @@ public class EnemyMove : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(xMoveDirection, 0) * enemySpeed;
         if (hit.distance < 0.6f) {
             Flip();
-            if(hit.collider.tag == "Player"){
-              Destroy(hit.collider.gameObject);
-            }
+            // if(hit.collider.tag == "Player"){
+            //   Destroy(hit.collider.gameObject);
+            // }
         }
     }
 
