@@ -7,6 +7,7 @@ public class CharMove : MonoBehaviour
     public Animator animator;
     private int playerSpeed = 8;
     private int playerJumpPower = 1700;
+    private float playerHeight = 0.0f;
     private float sprintMult = 3;
     private float totalSpeed;
     private float moveX;
@@ -17,6 +18,7 @@ public class CharMove : MonoBehaviour
     void Update()
     {
         PlayerMove();
+        PlayerRaycast();
         animator.SetFloat("Speed", Mathf.Abs(moveX));
     }
     void PlayerMove()
@@ -69,9 +71,22 @@ public class CharMove : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.tag == "ground") {
+    }
+
+    void PlayerRaycast(){
+        playerHeight = GetComponent<SpriteRenderer>().bounds.size.y;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
+        if(   (hit != null)
+           && (hit.collider != null)
+           && (hit.distance < (playerHeight/1.8))  ){
+
+          if(hit.collider.tag == "enemy"){
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * 1000);
+          }
+          if(hit.collider.tag != "enemy"){
             isGrounded = true;
             animator.SetBool("IsJumping", false);
+          }
         }
     }
 }
